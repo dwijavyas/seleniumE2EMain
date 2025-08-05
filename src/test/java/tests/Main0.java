@@ -3,8 +3,10 @@
 
 package tests;
 
+import java.io.IOException;
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -14,10 +16,15 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
 
-public class Main0 {
+import testComponents.BaseTest;
 
-	public static void main(String[] args) throws InterruptedException {
+public class Main0 extends BaseTest{
+
+	@Test(dataProvider="getdata")
+	public void main0(HashMap<String, String> input) throws InterruptedException {
 	
 		WebDriver driver = new ChromeDriver();
 		driver.manage().window().maximize();
@@ -26,8 +33,8 @@ public class Main0 {
 		
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 			
-		driver.findElement(By.id("userEmail")).sendKeys("ronu@gmail.com");
-		driver.findElement(By.id("userPassword")).sendKeys("Hello@123");
+		driver.findElement(By.id("userEmail")).sendKeys(input.get("email"));
+		driver.findElement(By.id("userPassword")).sendKeys(input.get("pswd"));
 		driver.findElement(By.id("login")).click();
 		
 		wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector("#toast-container")));
@@ -83,19 +90,18 @@ public class Main0 {
 		}
 		
 		
+	}
+
+	
+	@DataProvider()
+	public Object[][] getData() throws IOException {
 		
+		List<HashMap<String, String>> data = getJsonDataToMap(System.getProperty("user.dir")+
+				"\\src\\test\\java\\data\\PurchaseOrder.json");
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		return new Object[][] {{data.get(0)}};
 		
 	}
+
 
 }

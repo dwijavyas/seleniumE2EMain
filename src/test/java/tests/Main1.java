@@ -4,7 +4,9 @@
 
 package tests;
 
+import java.io.IOException;
 import java.time.Duration;
+import java.util.HashMap;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -15,11 +17,15 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
 
-public class Main1 {
+import testComponents.BaseTest;
+
+public class Main1 extends BaseTest {
 	
-	
-	public static void main(String[] args) throws InterruptedException {
+	@Test(dataProvider="getData")
+	public void main1(HashMap<String, String> input) throws InterruptedException {
 		
 		String name = "ZARA COAT 3";
 		String country = "India";
@@ -32,8 +38,8 @@ public class Main1 {
 		
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 			
-		driver.findElement(By.id("userEmail")).sendKeys("ronu@gmail.com");
-		driver.findElement(By.id("userPassword")).sendKeys("Hello@123");
+		driver.findElement(By.id("userEmail")).sendKeys(input.get("email"));
+		driver.findElement(By.id("userPassword")).sendKeys(input.get("pswd"));
 		driver.findElement(By.id("login")).click();
 	
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".mb-3")));
@@ -86,11 +92,22 @@ public class Main1 {
 		
 		driver.quit();
 	
-	
-	
-	
-	
+		
 	}
+	
+	@DataProvider()
+	public Object[][] getData() throws IOException{
+		
+		List<HashMap<String, String>> data = getJsonDataToMap(System.getProperty("user.dir")+
+				"\\src\\test\\java\\data\\PurchaseOrder.json");
+		
+		return new Object[][] {{data.get(0)}};
+		
+		
+	}
+	
+	
+	
 	
 
 }
