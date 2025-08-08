@@ -48,14 +48,14 @@ pipeline {
                     keepAll: true
                 ])
 
-                publishHTML(target: [
-                    reportDir: 'target/cucumber-reports',    // Adjust to your Cucumber report folder
-                    reportFiles: 'cucumber-reports.html',    // Your Cucumber main report file
-                    reportName: 'Cucumber Test Report',
-                    allowMissing: false,
-                    alwaysLinkToLastBuild: true,
-                    keepAll: true
-                ])
+               // publishHTML(target: [
+                 //   reportDir: 'target/cucumber-reports',    // Adjust to your Cucumber report folder
+                   // reportFiles: 'cucumber-reports.html',    // Your Cucumber main report file
+                   // reportName: 'Cucumber Test Report',
+                   // allowMissing: false,
+                   // alwaysLinkToLastBuild: true,
+                   // keepAll: true
+               // ])
             }
         }
     }
