@@ -1,7 +1,6 @@
 pipeline {
     agent any
 
-
     stages {
         stage('Checkout') {
             steps {
@@ -12,10 +11,8 @@ pipeline {
 
         stage('Prepare Credentials') {
             steps {
-                // Copy secret files from Jenkins credentials store to workspace
                 withCredentials([
                     file(credentialsId: 'sj-creds', variable: 'CREDS_FILE')
-                    // Add more files here if needed
                 ]) {
                     bat '''
                     if not exist data mkdir data
@@ -29,21 +26,21 @@ pipeline {
             steps {
                 script {
                     // Example 1: Run by class name
-                    sh 'mvn clean test -Dtest=POM_Main1Test'
+                    bat 'mvn clean test -Dtest=POM_Main1Test'
 
                     // Example 2: Run specific method in class
-                    // sh 'mvn clean test -Dtest=LoginTest#validLogin'
+                    // bat 'mvn clean test -Dtest=LoginTest#validLogin'
 
                     // Example 3: Run by Cucumber tag
-                    // sh 'mvn clean test -Dcucumber.filter.tags="@smoke"'
+                    // bat 'mvn clean test -Dcucumber.filter.tags="@smoke"'
                 }
             }
         }
 
-stage('Publish Reports') {
+        stage('Publish Reports') {
             steps {
                 publishHTML(target: [
-                    reportDir: 'Ereports/',      // Adjust to your Extent report folder
+                    reportDir: 'Ereports',      // Adjust to your Extent report folder
                     reportFiles: 'index.html',
                     reportName: 'Extent Test Report',
                     allowMissing: false,
@@ -53,7 +50,7 @@ stage('Publish Reports') {
 
                 publishHTML(target: [
                     reportDir: 'target/cucumber-reports',    // Adjust to your Cucumber report folder
-                    reportFiles: 'cucumber-reports.html', // Your Cucumber main report file
+                    reportFiles: 'cucumber-reports.html',    // Your Cucumber main report file
                     reportName: 'Cucumber Test Report',
                     allowMissing: false,
                     alwaysLinkToLastBuild: true,
@@ -68,3 +65,4 @@ stage('Publish Reports') {
             cleanWs()
         }
     }
+}
