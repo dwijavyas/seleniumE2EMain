@@ -8,7 +8,7 @@ public class ExtentReportsConfig {
 	
 	public static ExtentReports getReportObject() {
 		
-		String erPath = "reports//index.html"; 
+		String erPath = "Ereports//index.html"; 
 		ExtentSparkReporter reporter = new ExtentSparkReporter(erPath);
 		reporter.config().setDocumentTitle("Automation Results");
 		reporter.config().setReportName("Test Results");
