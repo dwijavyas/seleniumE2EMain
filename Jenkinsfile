@@ -15,9 +15,9 @@ pipeline {
                     file(credentialsId: 'sj-creds', variable: 'CREDS_FILE')
                 ]) {
                     bat '''
-                    if not exist data mkdir data
-                    copy "%CREDS_FILE%" data\\credentials.properties
-                    '''
+            		if not exist src\\test\\java\\data mkdir src\\test\\java\\data
+            		copy "%SJ_CREDS%" src\\test\\java\\data\\PurchaseOrder.json
+            		'''
                 }
             }
         }

@@ -22,16 +22,16 @@ public class POM_Main1Test extends BaseTest {
 		public void mainTest(HashMap<String, String> input) throws InterruptedException, IOException {
 			
 
-			DashboardPage dp = lp.getLogin(input.get("email"), input.get("pswd"));
+			DashboardPage dp = lp.getLogin(input.get("useremail"), input.get("userpswd"));
 			dp.getProductList();
-			dp.getProductName(input.get("productName"));
-			dp.addToCart(input.get("productName"));
+			dp.getProductName(input.get("userproductName"));
+			dp.addToCart(input.get("userproductName"));
 			CartPage cp = dp.goToCart();
 			cp.getCartItems();
-			Boolean match = cp.productInCart(input.get("productName"));
+			Boolean match = cp.productInCart(input.get("userproductName"));
 			Assert.assertTrue(match);
 			PlaceOrderPage pop = cp.clickCheckOut();
-			pop.selectCountry(input.get("countryName"));
+			pop.selectCountry(input.get("usercountryName"));
 			OrderConfirmationPage ocp = pop.clickPlaceOrder();
 			ocp.getOrderMsg();
 			Assert.assertEquals("THANKYOU FOR THE ORDER.",ocp.getOrderMsg());
@@ -44,9 +44,9 @@ public class POM_Main1Test extends BaseTest {
 		public void orderHistoryTest(HashMap<String, String> input) {
 			
 			
-			DashboardPage dp = lp.getLogin(input.get("email"),input.get("pswd"));
+			DashboardPage dp = lp.getLogin(input.get("useremail"),input.get("userpswd"));
 			OrdersPage op = dp.goToOrders();
-			Assert.assertTrue(op.verifyOrderDisplay(input.get("productName")));			
+			Assert.assertTrue(op.verifyOrderDisplay(input.get("userproductName")));			
 		}
 
 		
