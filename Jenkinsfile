@@ -25,11 +25,18 @@ pipeline {
             }
         }
 
-        stage('Build and Test') {
+        stage('Run Specific Test') {
             steps {
-                bat '''
-                mvn clean test
-                '''
+                script {
+                    // Example 1: Run by class name
+                    sh 'mvn clean test -Dtest=POM_Main1Test'
+
+                    // Example 2: Run specific method in class
+                    // sh 'mvn clean test -Dtest=LoginTest#validLogin'
+
+                    // Example 3: Run by Cucumber tag
+                    // sh 'mvn clean test -Dcucumber.filter.tags="@smoke"'
+                }
             }
         }
 
