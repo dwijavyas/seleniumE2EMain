@@ -16,7 +16,7 @@ pipeline {
                 ]) {
                     bat '''
             		if not exist src\\test\\java\\data mkdir src\\test\\java\\data
-            		copy "%SJ_CREDS%" src\\test\\java\\data\\PurchaseOrder.json
+            		copy "%CREDS_FILE%" src\\test\\java\\data\\PurchaseOrder.json
             		'''
                 }
             }
