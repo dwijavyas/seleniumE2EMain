@@ -40,7 +40,7 @@ public class POM_Main1Test extends BaseTest {
 		}
 		
 		//verify product in order hisotry 
-		@Test(dependsOnMethods= {"mainTest"})
+		@Test(dependsOnMethods= {"mainTest"}, dataProvider="getData")
 		public void orderHistoryTest(HashMap<String, String> input) {
 			
 			
